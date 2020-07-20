@@ -1,33 +1,46 @@
 import sys
 import os
 import pandas as pd
+import numpy as np
 import re
+import emoji
 
+def remove_emoji(text):
+    return emoji.get_emoji_regexp().sub(u'', text)
+
+def remove_at(text):
+	return re.sub('@[^\s]+','',text)
+
+def remove_symbols(text):
+	return re.sub(r'([^\s\w]|_)+', '', text)
+
+	
 files = [i for i in os.listdir("user_tweets") if i.endswith("csv")]
 
-#for file in files:
-data = pd.read_csv("user_tweets/"+str(files[0]),index_col=None, header=0)
-#data.astype(str).apply(lambda x: x.str.encode('ascii', 'ignore').str.decode('ascii'))
+for file in files:
+	#read each csv file one at a time and process them
+	data = pd.read_csv("user_tweets/"+str(file))
 
-#delete retweets
-data = data[~data.text.str.startswith('RT')]
+	#remove emojis
+	data['text'] = data['text'].apply(lambda k: remove_emoji(k))
 
-#remove links
-data['trimmed'] = data['text'].str.replace('http\S+|www.\S+', '', case=False)
+	#remove links
+	data['text'] = data['text'].str.strip()
+	data['text'] = data['text'].str.replace('http\S+|www.\S+', '', case=False)
 
-#remove emojis
-data['trimmed'] = data['trimmed'].str.replace("["
-                           u"\U0001F600-\U0001F64F"  # emoticons
-                           u"\U0001F300-\U0001F5FF"  # symbols & pictographs
-                           u"\U0001F680-\U0001F6FF"  # transport & map symbols
-                           u"\U0001F1E0-\U0001F1FF"  # flags (iOS)aa
-                           u"\U00002702-\U000027B0"
-                           u"\U000024C2-\U0001F251"
-                           "]+", '',flags=re.UNICODE)
+	#remove @
+	data['text'] = data['text'].apply(lambda x: remove_at(x))
 
-#remove images
-#data['trimmed'] = data.drop(data['trimmed'].astype(str).str.startswith('RT'))
+	#remove symbols
+	data['text'] = data['text'].apply(lambda n: remove_symbols(n))
 
+	#remove retweets
+	data = data[~data.text.str.startswith('RT')]
 
-data.to_csv('edit.csv', index=False, header=False)
-print(data)
+	#drop empty rows
+	data.dropna(axis=0, how='all')
+	#data['text'] = data['text'].replace('', np.nan, inplace=True)
+	#reset index
+	data.reset_index()
+	#Write to CSV
+	data.to_csv("Cleaned_user_tweets/Cleaned_"+str(file), index=False)
