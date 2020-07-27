@@ -9,7 +9,7 @@ We have chose to use `python-twitter` as it is the most up-to-date library and s
 Script `01_get_data.py` uses the `python-twitter` library to gather the last 3200 tweets for a user from `users.txt`. 
 The script then outputs the tweets to a `screen_name.csv` file with the header `created_at, text`.
 
-###Limitations
+### Limitations
 This script does not do any data cleaning. As a result some artifacts like url the url encoding of special characters and emoji are still persistent in the data. 
 Additionally, Twitter's API does not make a distinction between Retweets and Tweets.
 
