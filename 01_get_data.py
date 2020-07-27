@@ -49,5 +49,5 @@ def get_tweets(screen_name, to_csv=True):
 
 if __name__ == '__main__':
     file_name = sys.argv[1]
-    users = pd.read_csv(file_name, sep=' ', header=None, names=["screen_name"])
+    users = pd.read_csv(file_name, sep=',')
     users['screen_name'].apply(get_tweets)
