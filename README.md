@@ -16,4 +16,6 @@ Additionally, Twitter's API does not make a distinction between Retweets and Twe
 
 | # | script | purpose |
 | :---: | :---: | :---: |
-| 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files 
+| 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files
+| 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.)
+| 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame

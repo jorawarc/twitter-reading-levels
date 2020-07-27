@@ -1,0 +1,11 @@
+screen_name,name,birth_year,gender,is_political
+BarackObama,Barack Obama,1961,male,true
+justinbieber,Justin Bieber,1994,male,false
+katyperry,Katy Perry, 1984,female,false
+rihanna,Robyn Fenty, 1988,female,false
+taylorswift13,Taylor Swift,1989,female,false
+Cristiano,Cristiano Ronaldo,1985,male,false
+realDonaldTrump,Donald Trump,1946,male,true
+ladygaga,Stefani Germanotta,1986,female,false
+TheEllenShow,Ellen DeGeneres,1958,female,false
+ArianaGrande,Ariana Grande,1993,female,false
