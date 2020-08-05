@@ -12,6 +12,7 @@ def extract_user_from_file(filename):
 def get_tweets(screen_name, user_data, directory):
     file = user_data[user_data['screen_name'] == screen_name]['file']
     tweets = pd.read_csv(os.path.join(directory, *file.values))
+    tweets['created_at'] = pd.to_datetime(tweets['created_at'])
     return tweets
 
 
