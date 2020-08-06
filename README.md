@@ -10,17 +10,19 @@ Script `01_get_data.py` uses the `python-twitter` library to gather the last 320
 The script then outputs the tweets to a `screen_name.csv` file with the header `created_at, text`.
 
 # Calculating reading level
-We used a library called textstat to calculate the reading level of our twitter candidates. We used the following algorithms.
+We used a library called `textstat` to calculate the reading level of our twitter candidates. We used the following algorithms.
 
-The Flesch Reading Ease formula - returns the difficulty of text given. Max score is 121.22 
-Score	Difficulty
-90-100	Very Easy
-80-89	Easy
-70-79	Fairly Easy
-60-69	Standard
-50-59	Fairly Difficult
-30-49	Difficult
-0-29	Very Confusing
+The Flesch Reading Ease formula - returns the difficulty of text given. Max score is 121.22
+
+| Score | Difficulty |
+| :---: | :---: |
+| 90-100 | Very Easy
+| 80-89 | Easy
+| 70-79	| Fairly Easy
+| 60-69	| Standard
+| 50-59	| Fairly Difficult
+| 30-49	| Difficult
+| 0-29 | Very Confusing
 
 The Flesch-Kincaid Grade Level - Returns the Flesch-Kincaid Grade of the given text. This is a grade formula in that a score of 9.3 means that a ninth grader would be able to read the document.
 
@@ -31,13 +33,14 @@ The Coleman-Liau Index - Returns the grade level of the text using the Coleman-L
 
 Dale-Chall Readability Score - Uses a lookup table of the 3000 most commonly used English words. Returns the grade level of the text given.
 
-Score	Understood by
-4.9 or lower	average 4th-grade student or lower
-5.0–5.9	average 5th or 6th-grade student
-6.0–6.9	average 7th or 8th-grade student
-7.0–7.9	average 9th or 10th-grade student
-8.0–8.9	average 11th or 12th-grade student
-9.0–9.9	average 13th to 15th-grade (college) student
+|Score | Understood by |
+| :---: | :---: |
+| 4.9 or lower | average 4th-grade student or lower
+| 5.0–5.9 | average 5th or 6th-grade student
+| 6.0–6.9 | average 7th or 8th-grade student
+| 7.0–7.9 | average 9th or 10th-grade student
+| 8.0–8.9 | average 11th or 12th-grade student
+| 9.0–9.9 | average 13th to 15th-grade (college) student
 
 Readability Consensus based upon all the above tests - Based upon all the above tests, returns the estimated school grade level required to understand the text.
 
@@ -52,3 +55,4 @@ Additionally, Twitter's API does not make a distinction between Retweets and Twe
 | 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files
 | 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.)
 | 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame
+| 4 | `04_data_analysis.py` | Computes statistical results and plots tweets
