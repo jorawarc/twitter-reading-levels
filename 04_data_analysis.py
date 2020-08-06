@@ -18,6 +18,7 @@ METRICS = ['dale_chall_readability_score', 'flesch_kincaid', 'automated_readabil
 
 
 def plot_reading_levels_over_time(users, tweets_dir):
+    """plot: plot the reading levels of the top 5 most followed twitter users"""
     for metric in METRICS:
         fig, ax = plt.subplots()
         for user in users['screen_name']:
@@ -56,6 +57,7 @@ def plot_all_metrics(groups, legend, title_template):
 
 
 def group_by_gender(users, tweets_dir):
+    """group_by_gender: compare the reading levels of males and females"""
     male_users = users[users['gender'].str.match('male')]
     female_users = users[users['gender'].str.match('female')]
 
@@ -76,6 +78,7 @@ def compute_ttest(x1, x2):
 
 
 def group_by_political(users, tweets_dir):
+    """group_by_political: compare reading levels from politicians against non-politicians"""
     political = users[users['is_political']]
     non_political = users[users['is_political'] == False]
 
@@ -89,6 +92,7 @@ def group_by_political(users, tweets_dir):
 
 
 def group_by_year(users, tweets_dir):
+    """group_by_year: compare reading levels from 2017 and before against those afterwards"""
     user_tweets = get_group(users, tweets_dir)
     before_2017 = user_tweets[user_tweets['created_at'].dt.year <= 2017]
     after_2017 = user_tweets[user_tweets['created_at'].dt.year > 2017]
@@ -97,25 +101,52 @@ def group_by_year(users, tweets_dir):
 
 
 def compare_users(users, tweets_dir, screen_name1, screen_name2):
+    """compare_users: compare two twitter users' reading levels"""
     u1 = users[users['screen_name'].str.match(screen_name1)]
     u2 = users[users['screen_name'].str.match(screen_name2)]
 
     u1_tweets = get_group(u1, tweets_dir)
     u2_tweets = get_group(u2, tweets_dir)
-    plot_reading_levels_over_time(users[(users['screen_name'].str.match(screen_name1)) | (users['screen_name'].str.match(screen_name2))], tweets_dir)
     compute_ttest(u1_tweets, u2_tweets)
 
+    plot_reading_levels_over_time(users[(users['screen_name'].str.match(screen_name1)) | (users['screen_name'].str.match(screen_name2))], tweets_dir)
 
-def main(user_file, tweets_dir):
+
+def help_message():
+    func = [compare_users, group_by_year, group_by_political, group_by_gender, plot_reading_levels_over_time]
+    print("cli usage <users.csv> <cleaned_tweets dir> <command>")
+    print("The following commands are supported")
+    for i in func:
+        print(i.__doc__)
+    print('\n')
+
+
+def main(user_file, tweets_dir, command):
+
+    str_to_func = {'plot': plot_reading_levels_over_time,
+                   'group_by_gender': group_by_gender,
+                   'group_by_political': group_by_political,
+                   'group_by_year': group_by_year,
+                   'compare_users': compare_users}
+
     users = combine_data.collect_data(user_file, *os.listdir(tweets_dir))
+    if command not in str_to_func.keys():
+        print("Bad command")
+        return
 
-    compare_users(users, tweets_dir, "BarackObama", "realDonaldTrump")
-    #group_by_year(users, tweets_dir)
-    #group_by_political(users, tweets_dir)
-    #plot_reading_levels_over_time(users.head(5), tweets_dir)
-    #group_by_political(users, tweets_dir)
+    if command == "compare_users":
+        print("Note users must be from the users.csv file provided\n")
+        u1 = input("Enter the first user's screen name: ")
+        u2 = input("Enter the second user's screen name: ")
+        compare_users(users, tweets_dir, u1, u2)
+    elif command == "plot":
+        plot_reading_levels_over_time(users.head(5), tweets_dir)
+    else:
+        str_to_func[command](users, tweets_dir)
 
 
 if __name__ == '__main__':
     # users.csv Cleaned_user_tweets
-    main(sys.argv[1], sys.argv[2])
+    help_message()
+    assert(len(sys.argv) == 4)
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
