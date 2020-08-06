@@ -96,14 +96,26 @@ def group_by_year(users, tweets_dir):
     compute_ttest(before_2017, after_2017)
 
 
+def compare_users(users, tweets_dir, screen_name1, screen_name2):
+    u1 = users[users['screen_name'].str.match(screen_name1)]
+    u2 = users[users['screen_name'].str.match(screen_name2)]
+
+    u1_tweets = get_group(u1, tweets_dir)
+    u2_tweets = get_group(u2, tweets_dir)
+    plot_reading_levels_over_time(users[(users['screen_name'].str.match(screen_name1)) | (users['screen_name'].str.match(screen_name2))], tweets_dir)
+    compute_ttest(u1_tweets, u2_tweets)
+
+
 def main(user_file, tweets_dir):
     users = combine_data.collect_data(user_file, *os.listdir(tweets_dir))
 
-    group_by_year(users, tweets_dir)
+    compare_users(users, tweets_dir, "BarackObama", "realDonaldTrump")
+    #group_by_year(users, tweets_dir)
     #group_by_political(users, tweets_dir)
     #plot_reading_levels_over_time(users.head(5), tweets_dir)
     #group_by_political(users, tweets_dir)
 
 
 if __name__ == '__main__':
+    # users.csv Cleaned_user_tweets
     main(sys.argv[1], sys.argv[2])
