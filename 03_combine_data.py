@@ -11,13 +11,13 @@ def extract_user_from_file(filename):
 
 def get_tweets(screen_name, user_data, directory):
     file = user_data[user_data['screen_name'] == screen_name]['file']
-    tweets = pd.read_csv(os.path.join(directory, *file.values))
+    tweets = pd.read_csv(os.path.join(directory, *file.values), engine='python')
     tweets['created_at'] = pd.to_datetime(tweets['created_at'])
     return tweets
 
 
 def collect_data(users_file, *args):
-    user_data = pd.read_csv(users_file)
+    user_data = pd.read_csv(users_file, engine='python')
     users_file_manifest = {'screen_name': [], 'file': []}
     for f in args:
         users_file_manifest['screen_name'].append(extract_user_from_file(f))
