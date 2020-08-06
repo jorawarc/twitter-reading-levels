@@ -48,9 +48,9 @@ Readability Consensus based upon all the above tests - Based upon all the above 
 
 _Note: the external libraries in `requirments.txt` must be installed to run the entire pipeline_
 
-| # | script | purpose |
-| :---: | :---: | :---: |
-| 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files
-| 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.)
-| 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame
-| 4 | `04_data_analysis.py` | Computes statistical results and plots tweets
+| # | script | purpose | comment |
+| :---: | :---: | :---: | :---: |
+| 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files | cannot be run without generating new Twitter API key
+| 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.) | - |
+| 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame | used as helper library when computing stats
+| 4 | `04_data_analysis.py` | Computes statistical results and plots tweets | input <users.csv> <cleaned_tweets dir> <command> 
