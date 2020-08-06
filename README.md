@@ -9,7 +9,7 @@ We have chose to use `python-twitter` as it is the most up-to-date library and s
 Script `01_get_data.py` uses the `python-twitter` library to gather the last 3200 tweets for a user from `users.txt`. 
 The script then outputs the tweets to a `screen_name.csv` file with the header `created_at, text`.
 
-# Calculating reading level
+## Calculating reading level
 We used a library called `textstat` to calculate the reading level of our twitter candidates. We used the following algorithms.
 
 The Flesch Reading Ease formula - returns the difficulty of text given. Max score is 121.22
@@ -44,11 +44,9 @@ Dale-Chall Readability Score - Uses a lookup table of the 3000 most commonly use
 
 Readability Consensus based upon all the above tests - Based upon all the above tests, returns the estimated school grade level required to understand the text.
 
+## Scripts
 
-### Limitations
-This script does not do any data cleaning. As a result some artifacts like url the url encoding of special characters and emoji are still persistent in the data. 
-Additionally, Twitter's API does not make a distinction between Retweets and Tweets.
-
+_Note: the external libraries in `requirments.txt` must be installed to run the entire pipeline_
 
 | # | script | purpose |
 | :---: | :---: | :---: |
