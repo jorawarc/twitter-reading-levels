@@ -10,39 +10,20 @@ Script `01_get_data.py` uses the `python-twitter` library to gather the last 320
 The script then outputs the tweets to a `screen_name.csv` file with the header `created_at, text`.
 
 ## Calculating reading level
-We used a library called `textstat` to calculate the reading level of our twitter candidates. We used the following algorithms.
+We used a library called `textstat` to calculate the reading level of our twitter candidates. We used the following algorithms:
 
-The Flesch Reading Ease formula - returns the difficulty of text given. Max score is 121.22
+**Flesch Reading Ease formula** - returns the difficulty of text given. Max score is 121.22
 
-| Score | Difficulty |
-| :---: | :---: |
-| 90-100 | Very Easy
-| 80-89 | Easy
-| 70-79	| Fairly Easy
-| 60-69	| Standard
-| 50-59	| Fairly Difficult
-| 30-49	| Difficult
-| 0-29 | Very Confusing
+**Flesch-Kincaid Grade Level** - Returns the Flesch-Kincaid Grade of the given text. This is a grade formula in that a score of 9.3 means that a ninth grader would be able to read the document.
 
-The Flesch-Kincaid Grade Level - Returns the Flesch-Kincaid Grade of the given text. This is a grade formula in that a score of 9.3 means that a ninth grader would be able to read the document.
-
-Automated Readability index - Returns the ARI (Automated Readability Index) which outputs a number that approximates the grade level needed to comprehend the text.
+**Automated Readability index** - Returns the ARI (Automated Readability Index) which outputs a number that approximates the grade level needed to comprehend the text.
 if the ARI is 6.5, then the grade level to comprehend the text is 6th to 7th grade.
 
-The Coleman-Liau Index - Returns the grade level of the text using the Coleman-Liau Formula. This is a grade formula in that a score of 9.3 means that a ninth grader would be able to read the document.
+**Coleman-Liau Index** - Returns the grade level of the text using the Coleman-Liau Formula. This is a grade formula in that a score of 9.3 means that a ninth grader would be able to read the document.
 
-Dale-Chall Readability Score - Uses a lookup table of the 3000 most commonly used English words. Returns the grade level of the text given.
+**Dale-Chall Readability Score** - Uses a lookup table of the 3000 most commonly used English words. Returns the grade level of the text given.
 
-|Score | Understood by |
-| :---: | :---: |
-| 4.9 or lower | average 4th-grade student or lower
-| 5.0–5.9 | average 5th or 6th-grade student
-| 6.0–6.9 | average 7th or 8th-grade student
-| 7.0–7.9 | average 9th or 10th-grade student
-| 8.0–8.9 | average 11th or 12th-grade student
-| 9.0–9.9 | average 13th to 15th-grade (college) student
-
-Readability Consensus based upon all the above tests - Based upon all the above tests, returns the estimated school grade level required to understand the text.
+_Readability consensus is based upon all the above tests and returns the estimated school grade level required to understand the text._
 
 ## Scripts
 
