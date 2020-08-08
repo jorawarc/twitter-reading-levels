@@ -112,6 +112,8 @@ def compare_users(users, tweets_dir, screen_name1, screen_name2):
     plot_reading_levels_over_time(users[(users['screen_name'].str.match(screen_name1)) | (users['screen_name'].str.match(screen_name2))], tweets_dir)
 
 
+
+
 def help_message():
     func = [compare_users, group_by_year, group_by_political, group_by_gender, plot_reading_levels_over_time]
     print("cli usage <users.csv> <cleaned_tweets dir> <command>")
