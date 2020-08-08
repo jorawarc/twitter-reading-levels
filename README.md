@@ -6,7 +6,7 @@ We decided to leverage Twitter's existing developer API to gather tweets, howeve
 This route also allowed us simplified development as numerous python libraries have been created to interface with the API, abstracting the underlying network requests.
 We have chose to use `python-twitter` as it is the most up-to-date library and still being actively maintained.
 
-Script `01_get_data.py` uses the `python-twitter` library to gather the last 3200 tweets for a user from `users.txt`. 
+Script `01_get_data.py` uses the `python-twitter` library to gather the last 3200 tweets for a user from `users.csv`. 
 The script then outputs the tweets to a `screen_name.csv` file with the header `created_at, text`.
 
 ## Calculating reading level
@@ -46,11 +46,11 @@ Readability Consensus based upon all the above tests - Based upon all the above 
 
 ## Scripts
 
-_Note: the external libraries in `requirments.txt` must be installed to run the entire pipeline_
+_Note: Not all of the external libraries in `requirments.txt` must be installed to run the entire pipeline, however, this is the environment in which scripts were run_
 
-| # | script | purpose | comment |
-| :---: | :---: | :---: | :---: |
-| 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files | cannot be run without generating new Twitter API key
-| 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.) | - |
-| 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame | used as helper library when computing stats
-| 4 | `04_data_analysis.py` | Computes statistical results and plots tweets | input <users.csv> <cleaned_tweets dir> <command> 
+| # | script | purpose | usage | output | comment |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| 1 | `01_get_data.py` | Collect user tweets and output them to individual csv files | `python 01_get_data.py <users.csv>` | creates `user_tweets` directory and files | **Can not be run without a new Twitter API Key** |
+| 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.) | `python 02_clean_data.py` | creates `Cleaned_user_tweets` directory and files | - |
+| 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame | `python 03_combine_data.py <users.csv> <Clean_tweets dir>` | - |**helper library** which should not be run independently |
+| 4 | `04_data_analysis.py` | Computes statistical results and plots tweets | `python 04_data_analysis.py <users.csv> <cleaned_tweets dir> <command>` | ttest computations and plots | main entry point to analysis |
