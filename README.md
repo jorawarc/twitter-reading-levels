@@ -4,7 +4,7 @@ To gather Tweets from specific users, we had three options, scraping data from T
 We decided to leverage Twitter's existing developer API to gather tweets, however, this meant we were limited to 3200 tweets per user.
 
 This route also allowed us simplified development as numerous python libraries have been created to interface with the API, abstracting the underlying network requests.
-We have chose to use `python-twitter` as it is the most up-to-date library and still being actively maintained.
+We chose to use `python-twitter` as it is the most up-to-date library and still being actively maintained.
 
 Script `01_get_data.py` uses the `python-twitter` library to gather the last 3200 tweets for a user from `users.csv`. 
 The script then outputs the tweets to a `screen_name.csv` file with the header `created_at, text`.
@@ -27,7 +27,7 @@ _Readability consensus is based upon all the above tests and returns the estimat
 
 ## Scripts
 
-_Note: Not all of the external libraries in `requirments.txt` must be installed to run the entire pipeline, however, this is the environment in which scripts were run_
+_Note: Not all of the external libraries referenced in `requirments.txt` are required, but rather the file denotes the environment in which scripts were run_
 
 | # | script | purpose | usage | output | comment |
 | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -35,3 +35,4 @@ _Note: Not all of the external libraries in `requirments.txt` must be installed 
 | 2 | `02_clean_data.py` | Remove artifacts from tweets (emojis, retweets, etc.) | `python 02_clean_data.py` | creates `Cleaned_user_tweets` directory and files | - |
 | 3 | `03_combine_data.py` | Consolidate all the collected data into a single pandas data frame | `python 03_combine_data.py <users.csv> <Clean_tweets dir>` | - |**helper library** which should not be run independently |
 | 4 | `04_data_analysis.py` | Computes statistical results and plots tweets | `python 04_data_analysis.py <users.csv> <cleaned_tweets dir> <command>` | ttest computations and plots | main entry point to analysis |
+| 5 | `05_age_analysis.py` | Computes the correlation of age vs reading level. Performs a linear least-squares regressions and outputs the p-value to indicate a non-zero slope | `python 05_age_analysis.py` | P-values for each test and plots | - |
